@@ -12,6 +12,7 @@ import (
 	"github.com/ArtisanCloud/PowerWeChat/v3/src/payment/apply4Sub"
 	"github.com/ArtisanCloud/PowerWeChat/v3/src/payment/base"
 	"github.com/ArtisanCloud/PowerWeChat/v3/src/payment/bill"
+	"github.com/ArtisanCloud/PowerWeChat/v3/src/payment/fundApp"
 	"github.com/ArtisanCloud/PowerWeChat/v3/src/payment/jssdk"
 	kernel2 "github.com/ArtisanCloud/PowerWeChat/v3/src/payment/kernel"
 	"github.com/ArtisanCloud/PowerWeChat/v3/src/payment/merchant"
@@ -50,6 +51,7 @@ type Payment struct {
 	RedPack       *redpack.Client
 	Transfer      *transfer.Client
 	TransferBatch *transfer.BatchClient
+	FundApp       *fundApp.Client
 	Reverse       *reverse.Client
 	ProfitSharing *profitSharing.Client
 
@@ -200,6 +202,11 @@ func NewPayment(config *UserConfig) (*Payment, error) {
 		return nil, err
 	}
 
+	//-------------- FundApp --------------
+	app.FundApp, err = fundApp.RegisterProvider(app)
+	if err != nil {
+		return nil, err
+	}
 	//-------------- Reverse --------------
 	app.Reverse, err = reverse.RegisterProvider(app)
 	if err != nil {
