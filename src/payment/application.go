@@ -291,6 +291,8 @@ func (app *Payment) GetComponent(name string) interface{} {
 		return app.RedPack
 	case "Transfer":
 		return app.Transfer
+	case "FundApp":
+		return app.FundApp
 	case "Reverse":
 		return app.Reverse
 	case "ProfitSharing":

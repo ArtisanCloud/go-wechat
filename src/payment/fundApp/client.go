@@ -30,13 +30,13 @@ func (comp *Client) TransferBills(ctx context.Context, data *request.RequestTran
 
 	result := &response.ResponseTransferBills{}
 
-	params, err := object.StructToHashMap(data)
+	params, err := object.StructToStringMap(data)
 	if err != nil {
 		return nil, err
 	}
 
 	endpoint := comp.Wrap("/v3/fund-app/mch-transfer/transfer-bills")
-	_, err = comp.SafeRequest(ctx, endpoint, params, http.MethodPost, &object.HashMap{}, nil, result)
+	_, err = comp.SafeRequestV3(ctx, endpoint, params, http.MethodPost, &object.HashMap{}, nil, result)
 
 	return result, err
 }
